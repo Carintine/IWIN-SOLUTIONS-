@@ -22,9 +22,9 @@ const Navbar: React.FC = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img 
-              src="/logo.svg" 
-              alt="BOLODEY" 
-              className="h-10 w-auto"
+              src="https://bolodey.com/images/White%20Logo%20+%20Slogan.png" 
+              alt="BOLODEY - On-demand Services" 
+              className="h-12 w-auto bg-primary-600 px-4 py-1 rounded-lg"
               onError={(e) => {
                 // Fallback to text if logo doesn't load
                 e.currentTarget.style.display = 'none';

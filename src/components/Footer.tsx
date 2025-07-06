@@ -10,9 +10,9 @@ const Footer: React.FC = () => {
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
             <img 
-              src="/logo-white.svg" 
-              alt="BOLODEY" 
-              className="h-12 w-auto mb-4"
+              src="https://bolodey.com/images/White%20Logo%20+%20Slogan.png" 
+              alt="BOLODEY - On-demand Services" 
+              className="h-16 w-auto mb-4"
               onError={(e) => {
                 // Fallback to text if logo doesn't load
                 e.currentTarget.style.display = 'none';

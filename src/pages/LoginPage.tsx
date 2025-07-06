@@ -69,9 +69,9 @@ const LoginPage: React.FC = () => {
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center">
           <img 
-            src="/logo.svg" 
-            alt="BOLODEY" 
-            className="h-16 w-auto mx-auto mb-4"
+            src="https://bolodey.com/images/White%20Logo%20+%20Slogan.png" 
+            alt="BOLODEY - On-demand Services" 
+            className="h-20 w-auto mx-auto mb-4 bg-primary-600 px-6 py-2 rounded-xl"
             onError={(e) => {
               // Fallback to text if logo doesn't load
               e.currentTarget.style.display = 'none';
