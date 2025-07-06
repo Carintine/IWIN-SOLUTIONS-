@@ -3,6 +3,7 @@ import { useSearchParams, Link } from 'react-router-dom';
 import { Search, Filter, Star, MapPin, Clock, ChevronDown } from 'lucide-react';
 import { serviceCategories } from '../data/mockData';
 import { Service } from '../types';
+import AISearch from '../components/AISearch';
 
 const ServicesPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -98,14 +99,23 @@ const ServicesPage: React.FC = () => {
             Find the perfect service provider for your needs
           </p>
 
-          {/* Search and Filter Bar */}
+          {/* AI Search Bar */}
+          <div className="mb-6">
+            <AISearch 
+              placeholder="Search services with AI... Try: 'I need a plumber urgently' or 'Looking for house cleaning tomorrow'"
+              showSuggestions={false}
+              onSearchResults={(results) => setFilteredServices(results)}
+            />
+          </div>
+
+          {/* Advanced Filters */}
           <div className="flex flex-col md:flex-row gap-4">
-            {/* Search */}
+            {/* Traditional Search Fallback */}
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
               <input
                 type="text"
-                placeholder="Search services..."
+                placeholder="Traditional search..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"

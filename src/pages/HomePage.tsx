@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Star, Shield, Clock, MapPin, ChevronRight } from 'lucide-react';
 import { serviceCategories } from '../data/mockData';
+import AISearch from '../components/AISearch';
+import AIFeatureShowcase from '../components/AIFeatureShowcase';
 
 const HomePage: React.FC = () => {
   return (
@@ -18,19 +20,12 @@ const HomePage: React.FC = () => {
               Connect with verified service providers in Cameroon for all your home, personal, and business needs.
             </p>
             
-            {/* Search Bar */}
-            <div className="max-w-2xl mx-auto mb-8">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="What service do you need?"
-                  className="w-full pl-12 pr-4 py-4 rounded-lg text-gray-900 text-lg focus:outline-none focus:ring-2 focus:ring-primary-300"
-                />
-                <button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary-500 text-white px-6 py-2 rounded-md hover:bg-primary-600 transition-colors">
-                  Search
-                </button>
-              </div>
+            {/* AI Search Bar */}
+            <div className="max-w-4xl mx-auto mb-8">
+              <AISearch 
+                placeholder="What service do you need? Try: 'I need someone to clean my house this weekend'"
+                showSuggestions={true}
+              />
             </div>
 
             {/* Location Indicator */}
@@ -127,6 +122,9 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* AI Features Showcase */}
+      <AIFeatureShowcase />
 
       {/* CTA Section */}
       <section className="py-16 bg-primary-600 text-white">

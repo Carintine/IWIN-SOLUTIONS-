@@ -4,6 +4,14 @@ BOLODEY is a comprehensive on-demand service marketplace designed specifically f
 
 ## 🌟 Features
 
+### 🤖 AI-Powered Features
+- **AI Smart Search**: Natural language search with voice recognition - just say what you need!
+- **Intelligent Chatbot**: 24/7 AI assistant for instant support and service recommendations
+- **Intent Recognition**: AI understands your needs even when you don't know the exact service name
+- **Voice Search**: Hands-free service discovery with speech-to-text technology
+- **Smart Matching**: AI-powered provider recommendations based on location and preferences
+- **Contextual Suggestions**: Personalized service suggestions based on your requirements
+
 ### Customer Features
 - **Service Discovery**: Browse and search through various service categories
 - **Service Provider Profiles**: View detailed profiles with ratings, reviews, and experience
@@ -21,18 +29,46 @@ BOLODEY is a comprehensive on-demand service marketplace designed specifically f
 - **Rating System**: Build reputation through customer feedback
 
 ### Platform Features
+- **AI-First Experience**: Revolutionary AI-powered search and chatbot for effortless service discovery
 - **Mobile-First Design**: Optimized for mobile usage (87.5% mobile penetration in Cameroon)
 - **Responsive UI**: Works seamlessly across all device sizes
 - **Modern Design**: Clean, intuitive interface with African-inspired color scheme
+- **Voice-Enabled**: Speech recognition for hands-free interaction
 - **Secure Authentication**: User registration and login system
 - **Multi-language Ready**: Structured for future localization support
+
+## 🤖 AI Technology
+
+### Natural Language Processing
+BOLODEY's AI understands natural language queries in multiple formats:
+- **Conversational**: "I need someone to clean my house this weekend"
+- **Urgent**: "Looking for an electrician ASAP - power is out"
+- **Descriptive**: "Want a makeup artist for my wedding next month"
+- **Technical**: "Need plumbing repair for bathroom sink leak"
+
+### AI Capabilities
+- **Intent Recognition**: Understands what service you need
+- **Urgency Detection**: Identifies time-sensitive requests
+- **Location Awareness**: Considers your location for recommendations
+- **Service Matching**: AI-powered provider selection
+- **Smart Suggestions**: Context-aware recommendations
+- **Voice Processing**: Speech-to-text with high accuracy
+
+### Chatbot Intelligence
+- **24/7 Availability**: Instant responses anytime
+- **Multi-topic Support**: Services, pricing, booking, support
+- **Contextual Conversations**: Remembers conversation history
+- **Action Integration**: Direct booking and navigation
+- **Fallback Support**: Seamless handoff to human agents
 
 ## 🛠 Technology Stack
 
 - **Frontend**: React 18 with TypeScript
+- **AI Integration**: Natural Language Processing & Speech Recognition
 - **Styling**: Tailwind CSS with custom design system
 - **Icons**: Lucide React
 - **Routing**: React Router DOM
+- **Voice Technology**: Web Speech API
 - **Build Tool**: Create React App
 - **Package Manager**: npm
 

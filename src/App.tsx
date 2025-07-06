@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import Footer from './components/Footer';
+import AIChatbot from './components/AIChatbot';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           </Routes>
         </main>
         <Footer />
+        <AIChatbot />
       </div>
     </Router>
   );
