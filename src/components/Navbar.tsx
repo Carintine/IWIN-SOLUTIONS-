@@ -21,7 +21,18 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <div className="text-2xl font-bold text-primary-600">
+            <img 
+              src="/logo.svg" 
+              alt="BOLODEY" 
+              className="h-10 w-auto"
+              onError={(e) => {
+                // Fallback to text if logo doesn't load
+                e.currentTarget.style.display = 'none';
+                const nextEl = e.currentTarget.nextElementSibling as HTMLElement;
+                if (nextEl) nextEl.style.display = 'block';
+              }}
+            />
+            <div className="text-2xl font-bold text-primary-600 hidden">
               BOLODEY
             </div>
           </Link>

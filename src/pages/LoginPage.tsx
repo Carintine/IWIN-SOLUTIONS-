@@ -68,7 +68,18 @@ const LoginPage: React.FC = () => {
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-primary-600 mb-2">BOLODEY</h1>
+          <img 
+            src="/logo.svg" 
+            alt="BOLODEY" 
+            className="h-16 w-auto mx-auto mb-4"
+            onError={(e) => {
+              // Fallback to text if logo doesn't load
+              e.currentTarget.style.display = 'none';
+              const nextEl = e.currentTarget.nextElementSibling as HTMLElement;
+              if (nextEl) nextEl.style.display = 'block';
+            }}
+          />
+          <h1 className="text-3xl font-bold text-primary-600 mb-2 hidden">BOLODEY</h1>
           <h2 className="text-2xl font-bold text-gray-900">Sign in to your account</h2>
           <p className="mt-2 text-sm text-gray-600">
             Don't have an account?{' '}

@@ -9,7 +9,18 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
-            <div className="text-2xl font-bold text-primary-400 mb-4">
+            <img 
+              src="/logo-white.svg" 
+              alt="BOLODEY" 
+              className="h-12 w-auto mb-4"
+              onError={(e) => {
+                // Fallback to text if logo doesn't load
+                e.currentTarget.style.display = 'none';
+                const nextEl = e.currentTarget.nextElementSibling as HTMLElement;
+                if (nextEl) nextEl.style.display = 'block';
+              }}
+            />
+            <div className="text-2xl font-bold text-primary-400 mb-4 hidden">
               BOLODEY
             </div>
             <p className="text-gray-300 mb-4 max-w-md">
