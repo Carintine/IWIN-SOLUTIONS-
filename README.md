@@ -77,6 +77,7 @@ BOLODEY's AI understands natural language queries in multiple formats:
 ### Prerequisites
 - Node.js (v14 or higher)
 - npm (v6 or higher)
+- Modern browser with Web Speech API support (Chrome, Firefox, Safari)
 
 ### Installation
 
@@ -106,6 +107,43 @@ BOLODEY's AI understands natural language queries in multiple formats:
 - `npm test` - Launches the test runner
 - `npm eject` - Ejects from Create React App (not recommended)
 
+### 🤖 Using AI Features
+
+#### AI Search
+1. **Text Search**: Type natural language queries in the search bar
+   - Example: "I need someone to clean my house this weekend"
+   - Example: "Looking for a plumber to fix my bathroom sink"
+   - Example: "Need urgent electrical repair"
+
+2. **Voice Search**: Click the microphone icon for hands-free searching
+   - Ensure microphone permissions are granted
+   - Speak clearly in English
+   - Wait for AI processing and results
+
+3. **Smart Suggestions**: Use the AI-powered suggestion cards
+   - Click on suggested queries to explore services
+   - Suggestions are contextual and location-aware
+
+#### AI Chatbot
+1. **Access**: Click the floating chat button (bottom right corner)
+2. **Ask Questions**: Type or speak your questions about:
+   - Service recommendations
+   - Pricing information
+   - Booking process
+   - General support
+
+3. **Interactive Actions**: Use the quick-action buttons in chat responses
+   - Direct links to services
+   - Booking shortcuts
+   - Navigation to relevant pages
+
+#### Voice Commands Examples
+- "Find me a house cleaner"
+- "I need a plumber right now"
+- "Looking for makeup artist in Douala"
+- "Book electrical repair service"
+- "Show me home services"
+
 ## 📱 Pages & Components
 
 ### Main Pages
@@ -118,6 +156,9 @@ BOLODEY's AI understands natural language queries in multiple formats:
 - **Dashboard** (`/dashboard`) - User dashboard with bookings and profile management
 
 ### Key Components
+- **AISearch** - AI-powered search with natural language processing and voice recognition
+- **AIChatbot** - Intelligent chatbot with 24/7 customer support and service recommendations
+- **AIFeatureShowcase** - Display of AI capabilities and features
 - **Navbar** - Responsive navigation with mobile menu
 - **Footer** - Site-wide footer with contact information
 - **Service Cards** - Display service information with pricing and ratings
