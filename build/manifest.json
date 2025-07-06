@@ -1,0 +1,15 @@
+{
+  "short_name": "BOLODEY",
+  "name": "BOLODEY - On-demand Services",
+  "icons": [
+    {
+      "src": "https://bolodey.com/images/White%20Logo%20+%20Slogan.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#f1770b",
+  "background_color": "#ffffff"
+}
