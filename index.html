@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOLODEY - AI-Powered Service Marketplace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .primary-500 { background-color: #f1770b; }
+        .primary-600 { background-color: #d1660a; }
+        .primary-50 { background-color: #fef7ed; }
+        .primary-100 { background-color: #fed7aa; }
+        .text-primary-500 { color: #f1770b; }
+        .text-primary-600 { color: #d1660a; }
+        .text-primary-700 { color: #b45309; }
+        .border-primary-500 { border-color: #f1770b; }
+        .hover\:bg-primary-600:hover { background-color: #d1660a; }
+        .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+        .animate-bounce { animation: bounce 1s infinite; }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(0.8,0,1,1); }
+            50% { transform: none; animation-timing-function: cubic-bezier(0,0,0.2,1); }
+        }
+        .animate-spin { animation: spin 1s linear infinite; }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .gradient-bg { background: linear-gradient(135deg, #f1770b 0%, #0ea5e9 100%); }
+        .hidden { display: none; }
+        .chat-widget { position: fixed; bottom: 24px; right: 24px; z-index: 1000; }
+        .chat-window { position: fixed; bottom: 100px; right: 24px; width: 384px; height: 500px; z-index: 1000; }
+        .voice-recording { background-color: #ef4444; animation: pulse 1s infinite; }
+        .ai-processing { background-color: #f1770b; animation: pulse 1s infinite; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="primary-500 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <img src="https://bolodey.com/images/White%20Logo%20+%20Slogan.png" alt="BOLODEY" class="h-10 mr-3" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                    <span class="text-xl font-bold" style="display: none;">BOLODEY</span>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#home" class="hover:text-orange-200 transition-colors">Home</a>
+                    <a href="#services" class="hover:text-orange-200 transition-colors">Services</a>
+                    <a href="#about" class="hover:text-orange-200 transition-colors">About</a>
+                    <a href="#contact" class="hover:text-orange-200 transition-colors">Contact</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="bg-white text-orange-600 px-4 py-2 rounded-md hover:bg-orange-50 transition-colors">Login</button>
+                    <button class="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700 transition-colors">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                Find Services with <span class="text-yellow-300">AI Power</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+                Connect with verified service providers in Cameroon using our revolutionary AI-powered platform
+            </p>
+            
+            <!-- AI Search Bar -->
+            <div class="max-w-4xl mx-auto mb-8">
+                <div class="relative">
+                    <div class="absolute left-4 top-1/2 transform -translate-y-1/2 flex items-center">
+                        <span class="text-2xl mr-2">✨</span>
+                        <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    
+                    <input
+                        type="text"
+                        id="ai-search"
+                        placeholder="What service do you need? Try: 'I need someone to clean my house tomorrow'"
+                        class="w-full pl-16 pr-20 py-4 text-lg rounded-xl border-2 border-gray-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all duration-200 text-gray-900"
+                    />
+                    
+                    <div class="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center space-x-2">
+                        <!-- Voice Search Button -->
+                        <button
+                            id="voice-btn"
+                            class="p-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
+                            title="Voice search"
+                        >
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                            </svg>
+                        </button>
+                        
+                        <!-- Search Button -->
+                        <button
+                            id="search-btn"
+                            class="primary-500 text-white px-6 py-2 rounded-lg hover:bg-primary-600 transition-colors flex items-center"
+                        >
+                            <span class="mr-2">Search</span>
+                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Status -->
+            <div id="ai-status" class="hidden mt-4 text-center">
+                <div class="inline-flex items-center space-x-2 bg-white bg-opacity-20 text-white px-4 py-2 rounded-lg">
+                    <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                    <span id="status-text">AI is processing...</span>
+                </div>
+            </div>
+
+            <!-- Smart Suggestions -->
+            <div id="suggestions" class="mt-6">
+                <h3 class="text-lg font-medium text-white mb-3">✨ Try these AI-powered suggestions:</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-2xl mx-auto">
+                    <button class="suggestion-btn text-left p-3 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition-colors">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-white">I need someone to clean my house this weekend</span>
+                            <svg class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </div>
+                    </button>
+                    <button class="suggestion-btn text-left p-3 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition-colors">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-white">Looking for a plumber to fix my bathroom sink</span>
+                            <svg class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </div>
+                    </button>
+                    <button class="suggestion-btn text-left p-3 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition-colors">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-white">Need electrical work done in my office</span>
+                            <svg class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </div>
+                    </button>
+                    <button class="suggestion-btn text-left p-3 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition-colors">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-white">Want a hairdresser to come to my home</span>
+                            <svg class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Results -->
+    <section id="search-results" class="hidden py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+                <span class="text-2xl mr-2">🤖</span>
+                AI Found <span id="results-count">0</span> Services for You
+            </h2>
+            <div id="results-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Results will be populated here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Categories -->
+    <section id="services" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">Popular Service Categories</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                    <div class="text-4xl mb-4">🏠</div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Home Services</h3>
+                    <p class="text-gray-600 mb-4">Cleaning, plumbing, electrical work, and more</p>
+                    <div class="text-sm text-gray-500">
+                        <div>• House Cleaning</div>
+                        <div>• Plumbing Repairs</div>
+                        <div>• Electrical Work</div>
+                        <div>• Carpentry</div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                    <div class="text-4xl mb-4">💆</div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Personal Care</h3>
+                    <p class="text-gray-600 mb-4">Beauty, wellness, and personal services</p>
+                    <div class="text-sm text-gray-500">
+                        <div>• Hair Styling</div>
+                        <div>• Makeup Artist</div>
+                        <div>• Massage Therapy</div>
+                        <div>• Personal Training</div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                    <div class="text-4xl mb-4">🔧</div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Repair Services</h3>
+                    <p class="text-gray-600 mb-4">Fix and maintain your devices and equipment</p>
+                    <div class="text-sm text-gray-500">
+                        <div>• Phone Repair</div>
+                        <div>• Computer Repair</div>
+                        <div>• Appliance Repair</div>
+                        <div>• Vehicle Maintenance</div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                    <div class="text-4xl mb-4">💼</div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Business Support</h3>
+                    <p class="text-gray-600 mb-4">Professional services for your business</p>
+                    <div class="text-sm text-gray-500">
+                        <div>• Graphic Design</div>
+                        <div>• Social Media</div>
+                        <div>• Admin Support</div>
+                        <div>• Content Creation</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Features Showcase -->
+    <section class="py-16 bg-gradient-to-br from-orange-50 to-blue-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center space-x-2 bg-orange-100 text-orange-700 px-4 py-2 rounded-full mb-4">
+                    <span class="text-xl">🤖</span>
+                    <span class="font-medium">Powered by AI</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Experience the Future of Service Discovery</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    BOLODEY uses advanced AI to make finding and booking services as simple as having a conversation
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="text-orange-500 mb-4">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">AI-Powered Search</h3>
+                    <p class="text-gray-600 mb-4">Use natural language to find services. Say "I need someone to clean my house tomorrow" and our AI understands exactly what you need.</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <div class="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2"></div>
+                            <span>Natural language processing</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <div class="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2"></div>
+                            <span>Intent recognition</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <div class="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2"></div>
+                            <span>Smart recommendations</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="text-orange-500 mb-4">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Voice Search</h3>
+                    <p class="text-gray-600 mb-4">Speak your request and let our AI process it instantly. Perfect for when you're busy or on the go.</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <div class="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2"></div>
+                            <span>Voice recognition</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <div class="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2"></div>
+                            <span>Speech-to-text conversion</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <div class="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2"></div>
+                            <span>Hands-free operation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <div class="text-orange-500 mb-4">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Smart Chatbot</h3>
+                    <p class="text-gray-600 mb-4">Get instant answers about services, pricing, booking process, and more from our intelligent assistant.</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <div class="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2"></div>
+                            <span>24/7 instant responses</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <div class="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2"></div>
+                            <span>Service recommendations</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <div class="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2"></div>
+                            <span>Booking assistance</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Stats -->
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-orange-600 mb-2">99%</div>
+                    <div class="text-gray-600">Search Accuracy</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-orange-600 mb-2">&lt;2s</div>
+                    <div class="text-gray-600">Response Time</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-orange-600 mb-2">24/7</div>
+                    <div class="text-gray-600">AI Availability</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-orange-600 mb-2">5+</div>
+                    <div class="text-gray-600">Languages Supported</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <img src="https://bolodey.com/images/White%20Logo%20+%20Slogan.png" alt="BOLODEY" class="h-12 mb-4" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="text-xl font-bold mb-4" style="display: none;">BOLODEY</div>
+                    <p class="text-gray-400">Connecting Cameroon with quality services through AI-powered technology.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4">Services</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>Home Services</li>
+                        <li>Personal Care</li>
+                        <li>Repair Services</li>
+                        <li>Business Support</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>About Us</li>
+                        <li>How It Works</li>
+                        <li>Careers</li>
+                        <li>Contact</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4">Contact</h3>
+                    <div class="space-y-2 text-gray-400">
+                        <div>📍 Douala, Cameroon</div>
+                        <div>📧 info@bolodey.com</div>
+                        <div>📱 +237 6XX XXX XXX</div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 BOLODEY. All rights reserved. Built with ❤️ for Cameroon.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot Widget -->
+    <div class="chat-widget">
+        <button id="chat-toggle" class="w-14 h-14 primary-500 text-white rounded-full shadow-lg hover:bg-primary-600 transition-all duration-300 flex items-center justify-center animate-pulse">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Chat Window -->
+    <div id="chat-window" class="chat-window bg-white rounded-lg shadow-2xl border hidden flex flex-col">
+        <!-- Header -->
+        <div class="primary-500 text-white p-4 rounded-t-lg flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                    <span class="text-orange-500">🤖</span>
+                </div>
+                <div>
+                    <h3 class="font-semibold">BOLODEY AI Assistant</h3>
+                    <p class="text-xs text-orange-100">Online • Instant replies</p>
+                </div>
+            </div>
+            <button id="chat-close" class="text-white hover:text-orange-200">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Messages -->
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4">
+            <!-- Messages will be populated here -->
+        </div>
+
+        <!-- Input -->
+        <div class="p-4 border-t">
+            <div class="flex space-x-2">
+                <input
+                    type="text"
+                    id="chat-input"
+                    placeholder="Type your message..."
+                    class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
+                />
+                <button
+                    id="chat-send"
+                    class="primary-500 text-white p-2 rounded-lg hover:bg-primary-600 transition-colors"
+                >
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
+                </button>
+            </div>
+            <p class="text-xs text-gray-500 mt-1 text-center">
+                Powered by BOLODEY AI • Instant responses
+            </p>
+        </div>
+    </div>
+
+    <script src="ai-script.js"></script>
+</body>
+</html>
