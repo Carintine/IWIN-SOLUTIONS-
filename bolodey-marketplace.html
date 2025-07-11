@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOLODEY - On-Demand Service Marketplace | Cameroon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#fef7ee',
+                            100: '#fdecd3',
+                            200: '#fbd5a5',
+                            300: '#f8b86d',
+                            400: '#f49332',
+                            500: '#f1770b',
+                            600: '#e25d06',
+                            700: '#bb4509',
+                            800: '#95360f',
+                            900: '#792f10',
+                        },
+                        secondary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        accent: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .backdrop-blur-sm {
+            backdrop-filter: blur(4px);
+        }
+        .bg-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f97316' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .hidden { display: none; }
+        .block { display: block; }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-100 sticky top-0 z-50 backdrop-blur-sm bg-white/95">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center cursor-pointer" onclick="showPage('home')">
+                    <div class="text-2xl font-bold text-primary-500 tracking-tight">BOLODEY</div>
+                    <div class="hidden sm:block ml-2 text-xs text-gray-500 font-medium">Services</div>
+                </div>
+
+                <!-- Desktop Search Bar -->
+                <div class="hidden lg:flex items-center">
+                    <div class="flex items-center bg-white border border-gray-300 rounded-full shadow-sm hover:shadow-md transition-shadow duration-200 px-6 py-3">
+                        <div class="flex items-center space-x-6">
+                            <div class="text-sm font-medium text-gray-900">Where</div>
+                            <div class="w-px h-6 bg-gray-300"></div>
+                            <div class="text-sm font-medium text-gray-900">Service</div>
+                            <div class="w-px h-6 bg-gray-300"></div>
+                            <div class="text-sm text-gray-500">Add details</div>
+                        </div>
+                        <button class="ml-4 bg-primary-500 text-white p-2 rounded-full hover:bg-primary-600 transition-colors" onclick="showPage('services')">
+                            <i data-lucide="search" class="h-4 w-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-8">
+                    <button onclick="showPage('services')" class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50">
+                        Browse Services
+                    </button>
+                    <button onclick="showPage('register')" class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50">
+                        Become a Host
+                    </button>
+                    
+                    <!-- Profile Menu -->
+                    <div class="relative">
+                        <button onclick="toggleProfileMenu()" class="flex items-center space-x-2 border border-gray-300 rounded-full p-2 hover:shadow-md transition-shadow bg-white">
+                            <i data-lucide="menu" class="h-4 w-4 text-gray-600"></i>
+                            <div class="bg-gray-500 text-white rounded-full w-8 h-8 flex items-center justify-center">
+                                <i data-lucide="user" class="h-4 w-4"></i>
+                            </div>
+                        </button>
+
+                        <!-- Profile Dropdown -->
+                        <div id="profileMenu" class="hidden absolute right-0 top-12 w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">
+                            <button onclick="showPage('login')" class="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 font-medium">
+                                Log in
+                            </button>
+                            <button onclick="showPage('register')" class="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">
+                                Sign up
+                            </button>
+                            <div class="border-t border-gray-100 my-2"></div>
+                            <button onclick="showPage('register')" class="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">
+                                Become a service provider
+                            </button>
+                            <button class="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">
+                                Help
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="lg:hidden flex items-center space-x-4">
+                    <button onclick="showPage('services')" class="p-2 text-gray-600 hover:text-gray-900 rounded-full hover:bg-gray-100">
+                        <i data-lucide="search" class="h-5 w-5"></i>
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="text-gray-600 hover:text-gray-900 inline-flex items-center justify-center p-2 rounded-md">
+                        <i data-lucide="menu" class="h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden border-t border-gray-100">
+            <div class="px-4 pt-6 pb-3 space-y-1 bg-white">
+                <!-- Mobile Search -->
+                <button onclick="showPage('services')" class="flex items-center px-3 py-4 border border-gray-300 rounded-xl mb-4 hover:border-gray-400 transition-colors w-full">
+                    <i data-lucide="search" class="h-5 w-5 text-gray-400 mr-3"></i>
+                    <div class="text-left">
+                        <div class="text-sm font-medium text-gray-900">Search services</div>
+                        <div class="text-xs text-gray-500">Find what you need</div>
+                    </div>
+                </button>
+
+                <button onclick="showPage('home')" class="block w-full text-left px-3 py-3 rounded-xl text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                    Home
+                </button>
+                <button onclick="showPage('services')" class="block w-full text-left px-3 py-3 rounded-xl text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                    Browse Services
+                </button>
+                
+                <div class="border-t border-gray-200 pt-4 mt-4">
+                    <button onclick="showPage('login')" class="block w-full text-left px-3 py-3 rounded-xl text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                        Log in
+                    </button>
+                    <button onclick="showPage('register')" class="block mx-3 my-2 px-6 py-3 rounded-xl text-base font-medium bg-primary-500 text-white hover:bg-primary-600 text-center transition-colors">
+                        Sign up
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="mainContent">
+        <!-- Home Page -->
+        <div id="homePage" class="page">
+            <!-- Hero Section -->
+            <section class="relative bg-gradient-to-br from-primary-50 via-white to-secondary-50 overflow-hidden">
+                <div class="absolute inset-0 opacity-30 bg-pattern"></div>
+                
+                <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+                    <div class="text-center">
+                        <div class="inline-flex items-center px-4 py-2 bg-primary-100 rounded-full text-primary-700 text-sm font-medium mb-6">
+                            <i data-lucide="smartphone" class="h-4 w-4 mr-2"></i>
+                            Now Available in Cameroon
+                        </div>
+                        
+                        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-gray-900 leading-tight">
+                            Find amazing
+                            <span class="text-primary-500 block">services</span>
+                            near you
+                        </h1>
+                        
+                        <p class="text-lg md:text-xl mb-10 text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                            Connect with trusted, verified service providers across Cameroon. From home maintenance to personal care, we've got you covered.
+                        </p>
+                        
+                        <!-- Search Bar -->
+                        <div class="max-w-4xl mx-auto mb-8">
+                            <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-2">
+                                <div class="flex items-center">
+                                    <input type="text" placeholder="What service do you need? Try: 'House cleaning this weekend'" class="flex-1 px-4 py-3 text-lg border-0 focus:outline-none">
+                                    <button onclick="searchServices()" class="bg-primary-500 text-white px-6 py-3 rounded-xl hover:bg-primary-600 transition-colors font-medium">
+                                        <i data-lucide="search" class="h-5 w-5"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Stats -->
+                        <div class="flex flex-wrap justify-center gap-8 text-sm text-gray-600">
+                            <div class="flex items-center">
+                                <i data-lucide="users" class="h-4 w-4 mr-2 text-primary-500"></i>
+                                <span><strong>500+</strong> Service Providers</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i data-lucide="map-pin" class="h-4 w-4 mr-2 text-primary-500"></i>
+                                <span><strong>10+</strong> Cities</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i data-lucide="award" class="h-4 w-4 mr-2 text-primary-500"></i>
+                                <span><strong>1000+</strong> Happy Customers</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Service Categories -->
+            <section class="py-16 lg:py-24 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+                            Explore by category
+                        </h2>
+                        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                            Discover services that make your life easier
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="serviceCategories">
+                        <!-- Service categories will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="py-16 lg:py-24 bg-gray-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+                            Why customers love BOLODEY
+                        </h2>
+                        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                            We're changing how Cameroonians access quality services
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+                        <div class="text-center group">
+                            <div class="relative mb-8">
+                                <div class="bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl w-20 h-20 flex items-center justify-center mx-auto shadow-xl group-hover:shadow-2xl transition-shadow">
+                                    <i data-lucide="shield" class="h-10 w-10 text-white"></i>
+                                </div>
+                                <div class="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                                    <i data-lucide="check" class="w-3 h-3 text-white"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                                Verified & Trusted
+                            </h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                Every service provider undergoes thorough background checks, skill verification, and reference validation before joining our platform.
+                            </p>
+                        </div>
+
+                        <div class="text-center group">
+                            <div class="relative mb-8">
+                                <div class="bg-gradient-to-br from-secondary-500 to-secondary-600 rounded-2xl w-20 h-20 flex items-center justify-center mx-auto shadow-xl group-hover:shadow-2xl transition-shadow">
+                                    <i data-lucide="star" class="h-10 w-10 text-white"></i>
+                                </div>
+                                <div class="absolute -top-2 -right-2 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center">
+                                    <i data-lucide="star" class="w-3 h-3 text-white fill-current"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                                5-Star Quality
+                            </h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                Our rating system and customer reviews ensure you always get high-quality service from top-rated professionals.
+                            </p>
+                        </div>
+
+                        <div class="text-center group">
+                            <div class="relative mb-8">
+                                <div class="bg-gradient-to-br from-accent-500 to-accent-600 rounded-2xl w-20 h-20 flex items-center justify-center mx-auto shadow-xl group-hover:shadow-2xl transition-shadow">
+                                    <i data-lucide="clock" class="h-10 w-10 text-white"></i>
+                                </div>
+                                <div class="absolute -top-2 -right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                                    <i data-lucide="clock" class="w-3 h-3 text-white"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                                Same-Day Service
+                            </h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                Book instantly and get connected with available providers in your area. Many services available same-day or next-day.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How It Works -->
+            <section class="py-16 lg:py-24 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+                            How BOLODEY works
+                        </h2>
+                        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                            Get the service you need in three simple steps
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+                        <div class="text-center relative">
+                            <div class="relative z-10">
+                                <div class="bg-primary-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 text-xl font-bold shadow-lg">
+                                    1
+                                </div>
+                                <i data-lucide="search" class="h-8 w-8 text-primary-500 mx-auto mb-4"></i>
+                                <h3 class="text-xl font-bold text-gray-900 mb-4">
+                                    Tell us what you need
+                                </h3>
+                                <p class="text-gray-600 leading-relaxed">
+                                    Describe your service requirement and we'll match you with the right providers
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center relative">
+                            <div class="relative z-10">
+                                <div class="bg-primary-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 text-xl font-bold shadow-lg">
+                                    2
+                                </div>
+                                <i data-lucide="users" class="h-8 w-8 text-primary-500 mx-auto mb-4"></i>
+                                <h3 class="text-xl font-bold text-gray-900 mb-4">
+                                    Choose your provider
+                                </h3>
+                                <p class="text-gray-600 leading-relaxed">
+                                    Browse profiles, read reviews, and select the perfect provider for your needs
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center relative">
+                            <div class="relative z-10">
+                                <div class="bg-primary-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 text-xl font-bold shadow-lg">
+                                    3
+                                </div>
+                                <i data-lucide="award" class="h-8 w-8 text-primary-500 mx-auto mb-4"></i>
+                                <h3 class="text-xl font-bold text-gray-900 mb-4">
+                                    Get it done
+                                </h3>
+                                <p class="text-gray-600 leading-relaxed">
+                                    Schedule the service and enjoy professional quality work at your convenience
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="py-16 lg:py-24 bg-gradient-to-r from-primary-600 via-primary-700 to-secondary-600 relative overflow-hidden">
+                <div class="absolute inset-0 bg-black opacity-10"></div>
+                <div class="absolute inset-0 opacity-20 bg-pattern"></div>
+                
+                <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+                        Ready to experience the future of services?
+                    </h2>
+                    <p class="text-xl mb-10 text-primary-100 leading-relaxed">
+                        Join thousands of satisfied customers who trust BOLODEY for their daily service needs.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button onclick="showPage('register')" class="bg-white text-primary-600 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-xl">
+                            Book a Service Now
+                        </button>
+                        <button onclick="showPage('register')" class="bg-transparent text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-white hover:text-primary-600 transition-all duration-300 border-2 border-white transform hover:scale-105">
+                            Become a Provider
+                        </button>
+                    </div>
+                    
+                    <div class="mt-8 text-primary-200 text-sm">
+                        No credit card required • Free to browse • Instant booking
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Services Page -->
+        <div id="servicesPage" class="page hidden">
+            <!-- Hero Section -->
+            <div class="bg-gradient-to-r from-primary-50 to-secondary-50 border-b border-gray-100">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    <div class="text-center mb-8">
+                        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                            Find your perfect service
+                        </h1>
+                        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                            Connect with trusted professionals for all your service needs
+                        </p>
+                    </div>
+
+                    <!-- Search Bar -->
+                    <div class="max-w-4xl mx-auto">
+                        <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-4">
+                            <div class="flex items-center">
+                                <input type="text" id="serviceSearch" placeholder="What service do you need? Try: 'House cleaning this weekend' or 'Plumber urgently'" class="flex-1 px-4 py-3 text-lg border-0 focus:outline-none">
+                                <button onclick="filterServices()" class="bg-primary-500 text-white px-6 py-3 rounded-xl hover:bg-primary-600 transition-colors font-medium">
+                                    <i data-lucide="search" class="h-5 w-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="bg-white border-b border-gray-100 sticky top-20 z-40">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <!-- Category Pills -->
+                            <div class="flex items-center space-x-2 overflow-x-auto" id="categoryFilters">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <!-- Sort Dropdown -->
+                            <select id="sortSelect" onchange="sortServices()" class="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                                <option value="recommended">Recommended</option>
+                                <option value="name">Name</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="duration">Duration</option>
+                            </select>
+
+                            <!-- View Toggle -->
+                            <div class="flex items-center bg-gray-100 rounded-lg p-1">
+                                <button onclick="setViewMode('grid')" id="gridView" class="p-2 rounded-md transition-colors bg-white shadow-sm text-primary-600">
+                                    <i data-lucide="grid-3x3" class="h-4 w-4"></i>
+                                </button>
+                                <button onclick="setViewMode('list')" id="listView" class="p-2 rounded-md transition-colors text-gray-500">
+                                    <i data-lucide="list" class="h-4 w-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="flex items-center justify-between mb-8">
+                    <div class="text-gray-600">
+                        <span class="font-medium" id="serviceCount">0</span> services available
+                    </div>
+                </div>
+
+                <div id="servicesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Services will be populated by JavaScript -->
+                </div>
+
+                <!-- No Results -->
+                <div id="noResults" class="hidden text-center py-16">
+                    <div class="text-gray-400 text-6xl mb-4">🔍</div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                        No services found
+                    </h3>
+                    <p class="text-gray-600 mb-6">
+                        Try adjusting your search or browse all available services
+                    </p>
+                    <button onclick="clearFilters()" class="bg-primary-500 text-white px-6 py-3 rounded-xl hover:bg-primary-600 transition-colors font-medium">
+                        Show All Services
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Page -->
+        <div id="loginPage" class="page hidden">
+            <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-md w-full space-y-8">
+                    <div>
+                        <div class="text-center">
+                            <h2 class="mt-6 text-3xl font-bold text-gray-900">Sign in to your account</h2>
+                            <p class="mt-2 text-sm text-gray-600">
+                                Welcome back to BOLODEY
+                            </p>
+                        </div>
+                    </div>
+                    <form class="mt-8 space-y-6">
+                        <div class="rounded-md shadow-sm space-y-4">
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
+                                <input id="email" name="email" type="email" required class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm" placeholder="Enter your email">
+                            </div>
+                            <div>
+                                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                                <input id="password" name="password" type="password" required class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm" placeholder="Enter your password">
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded">
+                                <label for="remember-me" class="ml-2 block text-sm text-gray-900">Remember me</label>
+                            </div>
+
+                            <div class="text-sm">
+                                <a href="#" class="font-medium text-primary-600 hover:text-primary-500">Forgot your password?</a>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                                Sign in
+                            </button>
+                        </div>
+
+                        <div class="text-center">
+                            <span class="text-sm text-gray-600">Don't have an account? </span>
+                            <button type="button" onclick="showPage('register')" class="font-medium text-primary-600 hover:text-primary-500">Sign up</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register Page -->
+        <div id="registerPage" class="page hidden">
+            <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-md w-full space-y-8">
+                    <div>
+                        <div class="text-center">
+                            <h2 class="mt-6 text-3xl font-bold text-gray-900">Create your account</h2>
+                            <p class="mt-2 text-sm text-gray-600">
+                                Join the BOLODEY community
+                            </p>
+                        </div>
+                    </div>
+                    <form class="mt-8 space-y-6">
+                        <div class="space-y-4">
+                            <div>
+                                <label for="fullName" class="block text-sm font-medium text-gray-700">Full Name</label>
+                                <input id="fullName" name="fullName" type="text" required class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm" placeholder="Enter your full name">
+                            </div>
+                            <div>
+                                <label for="registerEmail" class="block text-sm font-medium text-gray-700">Email address</label>
+                                <input id="registerEmail" name="email" type="email" required class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm" placeholder="Enter your email">
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                                <input id="phone" name="phone" type="tel" required class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm" placeholder="+237 6XX XXX XXX">
+                            </div>
+                            <div>
+                                <label for="registerPassword" class="block text-sm font-medium text-gray-700">Password</label>
+                                <input id="registerPassword" name="password" type="password" required class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm" placeholder="Create a password">
+                            </div>
+                            <div>
+                                <label for="userType" class="block text-sm font-medium text-gray-700">I want to</label>
+                                <select id="userType" name="userType" class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-lg focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                    <option value="customer">Book services</option>
+                                    <option value="provider">Provide services</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                                Create Account
+                            </button>
+                        </div>
+
+                        <div class="text-center">
+                            <span class="text-sm text-gray-600">Already have an account? </span>
+                            <button type="button" onclick="showPage('login')" class="font-medium text-primary-600 hover:text-primary-500">Sign in</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="text-2xl font-bold text-white mb-4">BOLODEY</div>
+                    <p class="text-gray-300 mb-6 max-w-md">
+                        Cameroon's premier on-demand service marketplace connecting customers with verified professionals.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <span class="sr-only">Facebook</span>
+                            <i data-lucide="facebook" class="h-6 w-6"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <span class="sr-only">Twitter</span>
+                            <i data-lucide="twitter" class="h-6 w-6"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <span class="sr-only">Instagram</span>
+                            <i data-lucide="instagram" class="h-6 w-6"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-white">Home Services</a></li>
+                        <li><a href="#" class="hover:text-white">Personal Care</a></li>
+                        <li><a href="#" class="hover:text-white">Repairs</a></li>
+                        <li><a href="#" class="hover:text-white">Business Support</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-white">About Us</a></li>
+                        <li><a href="#" class="hover:text-white">Careers</a></li>
+                        <li><a href="#" class="hover:text-white">Contact</a></li>
+                        <li><a href="#" class="hover:text-white">Help Center</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2024 BOLODEY. All rights reserved. Made with ❤️ in Cameroon.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Sample data
+        const serviceCategories = [
+            {
+                id: 'home-services',
+                name: 'Home Services',
+                description: 'Professional home maintenance and cleaning services',
+                icon: '🏠',
+                services: [
+                    {
+                        id: 'cleaning',
+                        name: 'House Cleaning',
+                        description: 'Professional residential and commercial cleaning services',
+                        price: { min: 5000, max: 25000, currency: 'XAF', type: 'fixed' },
+                        duration: 120,
+                        rating: 4.8,
+                        reviews: 156
+                    },
+                    {
+                        id: 'plumbing',
+                        name: 'Plumbing',
+                        description: 'Expert plumbing repairs and installations',
+                        price: { min: 8000, max: 50000, currency: 'XAF', type: 'quote' },
+                        duration: 90,
+                        rating: 4.7,
+                        reviews: 98
+                    }
+                ]
+            },
+            {
+                id: 'personal-services',
+                name: 'Personal Services',
+                description: 'Beauty, wellness, and personal care services',
+                icon: '💆',
+                services: [
+                    {
+                        id: 'hairdressing',
+                        name: 'Hairdressing',
+                        description: 'Professional hair styling and treatment at home',
+                        price: { min: 3000, max: 15000, currency: 'XAF', type: 'fixed' },
+                        duration: 90,
+                        rating: 4.9,
+                        reviews: 234
+                    },
+                    {
+                        id: 'makeup',
+                        name: 'Makeup Services',
+                        description: 'Professional makeup for events and special occasions',
+                        price: { min: 8000, max: 35000, currency: 'XAF', type: 'fixed' },
+                        duration: 60,
+                        rating: 4.8,
+                        reviews: 87
+                    }
+                ]
+            },
+            {
+                id: 'repair-maintenance',
+                name: 'Repair & Maintenance',
+                description: 'Device repairs and maintenance services',
+                icon: '🔧',
+                services: [
+                    {
+                        id: 'phone-repair',
+                        name: 'Mobile Phone Repair',
+                        description: 'Fast and reliable smartphone repairs',
+                        price: { min: 5000, max: 30000, currency: 'XAF', type: 'quote' },
+                        duration: 45,
+                        rating: 4.6,
+                        reviews: 143
+                    }
+                ]
+            },
+            {
+                id: 'business-support',
+                name: 'Business Support',
+                description: 'Professional services for small businesses',
+                icon: '💼',
+                services: [
+                    {
+                        id: 'graphic-design',
+                        name: 'Graphic Design',
+                        description: 'Creative design services for your business',
+                        price: { min: 20000, max: 100000, currency: 'XAF', type: 'quote' },
+                        duration: 240,
+                        rating: 4.7,
+                        reviews: 67
+                    }
+                ]
+            }
+        ];
+
+        let currentCategory = 'all';
+        let currentViewMode = 'grid';
+        let allServices = [];
+
+        // Initialize the app
+        function initApp() {
+            // Flatten all services
+            allServices = serviceCategories.flatMap(category => 
+                category.services.map(service => ({
+                    ...service,
+                    category: category
+                }))
+            );
+
+            renderServiceCategories();
+            renderCategoryFilters();
+            renderServices();
+            
+            // Show home page by default
+            showPage('home');
+        }
+
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            // Show selected page
+            const targetPage = document.getElementById(pageId + 'Page');
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+            }
+            
+            // Close mobile menu and profile menu
+            document.getElementById('mobileMenu').classList.add('hidden');
+            document.getElementById('profileMenu').classList.add('hidden');
+        }
+
+        // Menu toggles
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function toggleProfileMenu() {
+            const menu = document.getElementById('profileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Service category rendering
+        function renderServiceCategories() {
+            const container = document.getElementById('serviceCategories');
+            container.innerHTML = serviceCategories.map(category => `
+                <div onclick="showCategoryServices('${category.id}')" class="group relative bg-white rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-50 to-secondary-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    
+                    <div class="relative p-8 h-64 flex flex-col justify-between">
+                        <div>
+                            <div class="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                                ${category.icon}
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary-600 transition-colors">
+                                ${category.name}
+                            </h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">
+                                ${category.description}
+                            </p>
+                        </div>
+                        
+                        <div class="flex items-center text-primary-600 group-hover:text-primary-700 font-medium">
+                            <span class="text-sm">Explore services</span>
+                            <i data-lucide="chevron-right" class="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute inset-0 rounded-3xl border border-gray-100 group-hover:border-primary-200 transition-colors"></div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function showCategoryServices(categoryId) {
+            currentCategory = categoryId;
+            showPage('services');
+            renderCategoryFilters();
+            renderServices();
+        }
+
+        // Category filters rendering
+        function renderCategoryFilters() {
+            const container = document.getElementById('categoryFilters');
+            const filters = [
+                { id: 'all', name: 'All Services', icon: '' },
+                ...serviceCategories.map(cat => ({ id: cat.id, name: cat.name, icon: cat.icon }))
+            ];
+            
+            container.innerHTML = filters.map(filter => `
+                <button onclick="filterByCategory('${filter.id}')" 
+                        class="px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+                            currentCategory === filter.id 
+                                ? 'bg-primary-500 text-white' 
+                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }">
+                    ${filter.icon} ${filter.name}
+                </button>
+            `).join('');
+        }
+
+        function filterByCategory(categoryId) {
+            currentCategory = categoryId;
+            renderCategoryFilters();
+            renderServices();
+        }
+
+        // Services rendering
+        function renderServices() {
+            let filteredServices = allServices;
+            
+            // Filter by category
+            if (currentCategory !== 'all') {
+                filteredServices = filteredServices.filter(service => service.category.id === currentCategory);
+            }
+            
+            // Search filter
+            const searchTerm = document.getElementById('serviceSearch')?.value.toLowerCase() || '';
+            if (searchTerm) {
+                filteredServices = filteredServices.filter(service => 
+                    service.name.toLowerCase().includes(searchTerm) ||
+                    service.description.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            // Update count
+            document.getElementById('serviceCount').textContent = filteredServices.length;
+            
+            const container = document.getElementById('servicesGrid');
+            const noResults = document.getElementById('noResults');
+            
+            if (filteredServices.length === 0) {
+                container.classList.add('hidden');
+                noResults.classList.remove('hidden');
+                return;
+            }
+            
+            container.classList.remove('hidden');
+            noResults.classList.add('hidden');
+            
+            container.innerHTML = filteredServices.map(service => `
+                <div class="group bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="relative h-56 bg-gray-200 overflow-hidden">
+                        <img src="https://via.placeholder.com/300x200/f3f4f6/6b7280?text=${encodeURIComponent(service.name)}" 
+                             alt="${service.name}" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <button onclick="toggleFavorite('${service.id}')" class="absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-white transition-colors shadow-md">
+                            <i data-lucide="heart" class="h-4 w-4 text-gray-600"></i>
+                        </button>
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-white/90 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">
+                                ${service.category.name}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-3">
+                            <h3 class="text-lg font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">
+                                ${service.name}
+                            </h3>
+                            <div class="flex items-center text-gray-600 ml-2">
+                                <i data-lucide="star" class="h-4 w-4 text-yellow-400 fill-current mr-1"></i>
+                                <span class="text-sm font-medium">${service.rating}</span>
+                            </div>
+                        </div>
+                        
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+                            ${service.description}
+                        </p>
+                        
+                        <div class="flex items-center justify-between mb-4 text-sm text-gray-500">
+                            <div class="flex items-center">
+                                <i data-lucide="clock" class="h-4 w-4 mr-1"></i>
+                                <span>${formatDuration(service.duration)}</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i data-lucide="map-pin" class="h-4 w-4 mr-1"></i>
+                                <span>Douala</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="text-lg font-bold text-gray-900">
+                                    ${formatPrice(service.price)}
+                                </div>
+                                ${service.price.type === 'hourly' ? '<div class="text-xs text-gray-500">per hour</div>' : ''}
+                            </div>
+                            <button onclick="bookService('${service.id}')" class="bg-primary-500 text-white px-6 py-2 rounded-xl hover:bg-primary-600 transition-colors text-sm font-medium">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            lucide.createIcons();
+        }
+
+        // Utility functions
+        function formatPrice(price) {
+            if (price.type === 'quote') {
+                return 'Get Quote';
+            }
+            if (price.min === price.max) {
+                return `${price.min.toLocaleString()} ${price.currency}`;
+            }
+            return `${price.min.toLocaleString()} - ${price.max.toLocaleString()} ${price.currency}`;
+        }
+
+        function formatDuration(minutes) {
+            if (minutes < 60) {
+                return `${minutes} min`;
+            }
+            const hours = Math.floor(minutes / 60);
+            const remainingMinutes = minutes % 60;
+            if (remainingMinutes === 0) {
+                return `${hours} hr`;
+            }
+            return `${hours}h ${remainingMinutes}m`;
+        }
+
+        // Search and filter functions
+        function searchServices() {
+            showPage('services');
+            renderServices();
+        }
+
+        function filterServices() {
+            renderServices();
+        }
+
+        function sortServices() {
+            // Sort logic would go here
+            renderServices();
+        }
+
+        function setViewMode(mode) {
+            currentViewMode = mode;
+            const gridBtn = document.getElementById('gridView');
+            const listBtn = document.getElementById('listView');
+            
+            if (mode === 'grid') {
+                gridBtn.className = 'p-2 rounded-md transition-colors bg-white shadow-sm text-primary-600';
+                listBtn.className = 'p-2 rounded-md transition-colors text-gray-500';
+            } else {
+                gridBtn.className = 'p-2 rounded-md transition-colors text-gray-500';
+                listBtn.className = 'p-2 rounded-md transition-colors bg-white shadow-sm text-primary-600';
+            }
+        }
+
+        function clearFilters() {
+            currentCategory = 'all';
+            document.getElementById('serviceSearch').value = '';
+            renderCategoryFilters();
+            renderServices();
+        }
+
+        function toggleFavorite(serviceId) {
+            // Favorite logic would go here
+            console.log('Toggled favorite for:', serviceId);
+        }
+
+        function bookService(serviceId) {
+            alert(`Booking service: ${serviceId}`);
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            const profileMenu = document.getElementById('profileMenu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            if (!event.target.closest('[onclick*="toggleProfileMenu"]') && !profileMenu.contains(event.target)) {
+                profileMenu.classList.add('hidden');
+            }
+            
+            if (!event.target.closest('[onclick*="toggleMobileMenu"]') && !mobileMenu.contains(event.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
