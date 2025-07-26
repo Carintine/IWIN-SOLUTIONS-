@@ -1,10 +1,9 @@
 import React from 'react';
-
-const FXQuotes = () => <div className="bg-white rounded shadow p-4">FX Quotes (Real-time)</div>;
-const TechnicalAnalysis = () => <div className="bg-white rounded shadow p-4">Technical Analysis Chart</div>;
-const NewsFeed = () => <div className="bg-white rounded shadow p-4">Fundamental News Feed</div>;
-const Sentiment = () => <div className="bg-white rounded shadow p-4">Sentiment Analysis</div>;
-const SignalAlerts = () => <div className="bg-white rounded shadow p-4">Signal Alerts</div>;
+import FXQuotes from '../components/FXQuotes';
+import TechnicalAnalysis from '../components/TechnicalAnalysis';
+import NewsFeed from '../components/NewsFeed';
+import SentimentAnalysis from '../components/SentimentAnalysis';
+import SignalAlerts from '../components/SignalAlerts';
 
 const FXDashboardPage: React.FC = () => {
   return (
@@ -16,7 +15,7 @@ const FXDashboardPage: React.FC = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <NewsFeed />
-        <Sentiment />
+        <SentimentAnalysis />
         <SignalAlerts />
       </div>
     </div>
